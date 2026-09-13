@@ -1,0 +1,642 @@
+{
+  "info": {
+    "_postman_id": "ce5910a2-5360-49a0-8548-7ce895c5af16",
+    "name": "Platzi API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55280990",
+    "_collection_link": "https://go.postman.co/collection/55280990-ce5910a2-5360-49a0-8548-7ce895c5af16?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "GetCategories",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Joggers edited\",\n  \"price\": 100,\n  \"description\": \"Premium quality joggers updated description\",\n  \"categoryId\": 1,\n  \"images\": [\"https://placehold.co/600x400\"]\n}"
+            },
+            "url": {
+              "raw": "{{LoginC}}",
+              "host": [
+                "{{LoginC}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Filter products",
+      "item": [
+        {
+          "name": "GetProducts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{LoginC}}/?price=100",
+              "host": [
+                "{{LoginC}}"
+              ],
+              "path": [
+                ""
+              ],
+              "query": [
+                {
+                  "key": "price",
+                  "value": "100"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "SchemaTest",
+      "item": [
+        {
+          "name": "SchemaGet",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = ",
+                  "    {",
+                  "  \"$schema\": \"http://json-schema.org/draft-07/schema#\",",
+                  "  \"title\": \"Generated schema for Root\",",
+                  "  \"type\": \"array\",",
+                  "  \"items\": {",
+                  "    \"type\": \"object\",",
+                  "    \"properties\": {",
+                  "      \"id\": {",
+                  "        \"type\": \"number\"",
+                  "      },",
+                  "      \"title\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"slug\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"price\": {",
+                  "        \"type\": \"number\"",
+                  "      },",
+                  "      \"description\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"category\": {",
+                  "        \"type\": \"object\",",
+                  "        \"properties\": {",
+                  "          \"id\": {",
+                  "            \"type\": \"number\"",
+                  "          },",
+                  "          \"name\": {",
+                  "            \"type\": \"string\"",
+                  "          },",
+                  "          \"slug\": {",
+                  "            \"type\": \"string\"",
+                  "          },",
+                  "          \"image\": {",
+                  "            \"type\": \"string\"",
+                  "          },",
+                  "          \"creationAt\": {",
+                  "            \"type\": \"string\"",
+                  "          },",
+                  "          \"updatedAt\": {",
+                  "            \"type\": \"string\"",
+                  "          }",
+                  "        },",
+                  "        \"required\": [",
+                  "          \"id\",",
+                  "          \"name\",",
+                  "          \"slug\",",
+                  "          \"image\",",
+                  "          \"creationAt\",",
+                  "          \"updatedAt\"",
+                  "        ]",
+                  "      },",
+                  "      \"images\": {",
+                  "        \"type\": \"array\",",
+                  "        \"items\": {",
+                  "          \"type\": \"string\"",
+                  "        }",
+                  "      },",
+                  "      \"creationAt\": {",
+                  "        \"type\": \"string\"",
+                  "      },",
+                  "      \"updatedAt\": {",
+                  "        \"type\": \"string\"",
+                  "      }",
+                  "    },",
+                  "    \"required\": [",
+                  "      \"id\",",
+                  "      \"title\",",
+                  "      \"slug\",",
+                  "      \"price\",",
+                  "      \"description\",",
+                  "      \"category\",",
+                  "      \"images\",",
+                  "      \"creationAt\",",
+                  "      \"updatedAt\"",
+                  "    ]",
+                  "  }",
+                  "}",
+                  "",
+                  "pm.test(\"Response body has valid schema\", function () {",
+                  "    pm.response.to.have.jsonSchema(schema);",
+                  "})",
+                  "",
+                  "const responseBody = pm.response.json();",
+                  "",
+                  "",
+                  "pm.test(\"All products have valid fields\", function() {",
+                  "    for (let i = 0; i < responseBody.length; i++) {",
+                  "        const product = responseBody[i];",
+                  "        pm.expect(product).to.have.property('id');",
+                  "        pm.expect(product).to.have.property('title');",
+                  "        pm.expect(product).to.have.property('price');",
+                  "        pm.expect(product).to.have.property('slug');",
+                  "        pm.expect(product).to.have.property('description');",
+                  "        pm.expect(product).to.have.property('images');",
+                  "        pm.expect(product).to.have.property('category');",
+                  "        ",
+                  "        pm.expect(product.id).to.be.a('number');",
+                  "        pm.expect(product.title).to.be.a('string');",
+                  "        pm.expect(product.price).to.be.a('number');",
+                  "        pm.expect(product.slug).to.be.a('string');",
+                  "        pm.expect(product.description).to.be.a('string');",
+                  "        pm.expect(product.images).to.be.an('array');",
+                  "        pm.expect(product.category).to.be.an('object');",
+                  "",
+                  "        console.log(`✅ Product ${i + 1} passed: ID=${product.id}, Title=${product.title}, Price=${product.price}`);",
+                  "    }",
+                  "});",
+                  "",
+                  "",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Joggers edited\",\n  \"price\": 100,\n  \"description\": \"Premium quality joggers updated description\",\n  \"categoryId\": 1,\n  \"images\": [\"https://placehold.co/600x400\"]\n}"
+            },
+            "url": {
+              "raw": "https://api.escuelajs.co/api/v1/products",
+              "protocol": "https",
+              "host": [
+                "api",
+                "escuelajs",
+                "co"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "GetProduct",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseBody = pm.response.json();",
+              "",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 3500ms\",function(){",
+              "    pm.expect(pm.response.responseTime).to.be.below(3500);",
+              "});",
+              "",
+              "pm.test(\"Status code is 200\",function(){",
+              "    pm.expect(pm.response.code).to.eql(200);",
+              "    });",
+              "",
+              "const randomIndex = Math.floor(Math.random() * responseBody.length);",
+              "const randomProduct = responseBody[randomIndex];",
+              "",
+              "const randomId = randomProduct.id;",
+              "",
+              "pm.collectionVariables.set(\"RandomId\", randomId);",
+              "",
+              "pm.collectionVariables.set(\"RandomSlug\",randomProduct.slug);",
+              "",
+              "",
+              "console.log(\"Random Slug set to: \",randomProduct.slug,\"for id: \",randomId);",
+              "",
+              "pm.test(\"All products have valid fields\", function() {",
+              "    for (let i = 0; i < responseBody.length; i++) {",
+              "        const product = responseBo",
+              "        pm.expect(product).to.have.property('id');",
+              "        pm.expect(product).to.have.property('title');",
+              "        pm.expect(product).to.have.property('price');",
+              "        ",
+              "        pm.expect(product.id).to.be.a('number');",
+              "        pm.expect(product.title).to.be.a('string');",
+              "        pm.expect(product.price).to.be.a('number');",
+              "",
+              "        console.log(`✅ Product ${i + 1} passed: ID=${product.id}, Title=${product.title}, Price=${product.price}`);",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"{{Email}}\",\n\"password\":\"{{Password}}\",\n\"deviceInfo\":\"{{Device Info}}\",\n\"userType\":\"{{User Type}}\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{LoginC}}",
+          "host": [
+            "{{LoginC}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "SingleGetProducts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{LoginC}}/{{RandomId}}",
+          "host": [
+            "{{LoginC}}"
+          ],
+          "path": [
+            "{{RandomId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetSlug",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{LoginC}}/slug/{{RandomSlug}}",
+          "host": [
+            "{{LoginC}}"
+          ],
+          "path": [
+            "slug",
+            "{{RandomSlug}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CreateProduct",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseBody = pm.response.json();",
+              "",
+              "pm.collectionVariables.set(\"productId\", responseBody.id);",
+              "",
+              "console.log(\"Product ID created\");"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.variables.set(\"randomTitle\",\"Prasanga-\"+Date.now());"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"{{randomTitle}}\",\n  \"price\": 1000,\n  \"description\": \"Premium qualityyy\",\n  \"categoryId\": 2,\n  \"images\": [\"https://placehol.co/600x400\"]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{LoginC}}/",
+          "host": [
+            "{{LoginC}}"
+          ],
+          "path": [
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UpdateProduct",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Joggers edited\",\n  \"price\": 100,\n  \"description\": \"Premium quality joggers updated description\",\n  \"categoryId\": 1,\n  \"images\": [\"https://placehold.co/600x400\"]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{LoginC}}/{{productId}}",
+          "host": [
+            "{{LoginC}}"
+          ],
+          "path": [
+            "{{productId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DeleteProduct",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"{{Email}}\",\n\"password\":\"{{Password}}\",\n\"deviceInfo\":\"{{Device Info}}\",\n\"userType\":\"{{User Type}}\"}"
+        },
+        "url": {
+          "raw": "{{LoginC}}/{{RandomId}}",
+          "host": [
+            "{{LoginC}}"
+          ],
+          "path": [
+            "{{RandomId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Pagination",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{LoginC}}?offset=0&limit=10",
+          "host": [
+            "{{LoginC}}"
+          ],
+          "query": [
+            {
+              "key": "offset",
+              "value": "0"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RelatedById",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"{{Email}}\",\n\"password\":\"{{Password}}\",\n\"deviceInfo\":\"{{Device Info}}\",\n\"userType\":\"{{User Type}}\"}"
+        },
+        "url": {
+          "raw": "{{LoginC}}/{{RandomId}}/related",
+          "host": [
+            "{{LoginC}}"
+          ],
+          "path": [
+            "{{RandomId}}",
+            "related"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "RelatedSlug",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"{{Email}}\",\n\"password\":\"{{Password}}\",\n\"deviceInfo\":\"{{Device Info}}\",\n\"userType\":\"{{User Type}}\"}"
+        },
+        "url": {
+          "raw": "{{LoginC}}/{{RandomSlug}}/related",
+          "host": [
+            "{{LoginC}}"
+          ],
+          "path": [
+            "{{RandomSlug}}",
+            "related"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AuthJWT",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseBody = pm.response.json();",
+              "",
+              "pm.collectionVariables.set(\"access_token\",responseBody.access_token);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\":\"john@mail.com\",\n    \"password\":\"changeme\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{LoginAuth}}/login",
+          "host": [
+            "{{LoginAuth}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetProfile",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\":\"john@mail.com\",\n    \"password\":\"changeme\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{LoginAuth}}/profile",
+          "host": [
+            "{{LoginAuth}}"
+          ],
+          "path": [
+            "profile"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "LoginC",
+      "value": "https://api.escuelajs.co/api/v1/products"
+    },
+    {
+      "key": "productId",
+      "value": 196
+    },
+    {
+      "key": "LoginAuth",
+      "value": "https://api.escuelajs.co/api/v1/auth"
+    },
+    {
+      "key": "access_token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTc4OTI5OTAyOSwiZXhwIjoxNzkxMDI3MDI5fQ.SpStQTlf0-k9Xgb39ooSOIP71FfVth1vlxQhw5-FnlQ"
+    },
+    {
+      "key": "RandomId",
+      "value": 194
+    },
+    {
+      "key": "RandomSlug",
+      "value": "bi-build-fixture-df9l-daily-revenue-dashboard-6603675239604"
+    }
+  ]
+}
