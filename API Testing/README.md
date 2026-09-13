@@ -1,10 +1,10 @@
-# ⚡ REST API Testing & Automation Framework
+# REST API Testing & Automation Framework
 
-This module contains production-grade automated API testing collections built using **Postman**, featuring full CRUD lifecycle validation, pre-request dynamic scripting, chained JWT Bearer authentication, and JSON Schema assertion.
+This module contains automated API testing collections built using **Postman**, featuring full CRUD lifecycle validation, pre-request dynamic scripting, chained JWT Bearer authentication, and JSON Schema assertion.
 
 ---
 
-## 🎯 Target Application & Endpoints
+## Target Application & Endpoints
 
 - **Base URL:** `https://api.escuelajs.co/api/v1` (Platzi Fake Store REST API)
 - **Collection File:** [`Platzi API.postman_collection.json`](./Platzi%20API.postman_collection.json)
@@ -12,7 +12,7 @@ This module contains production-grade automated API testing collections built us
 
 ---
 
-## 📋 Endpoint & Test Request Breakdown
+## Endpoint & Test Request Breakdown
 
 | Request Name | Method | Path | Test Purpose & Assertions |
 | :--- | :---: | :--- | :--- |
@@ -33,7 +33,7 @@ This module contains production-grade automated API testing collections built us
 
 ---
 
-## 🛠️ Advanced Scripting Highlights
+## Advanced Scripting Highlights
 
 ### 1. Dynamic Pre-Request Title Generation
 ```javascript
@@ -78,7 +78,7 @@ pm.test("Validate Product JSON Schema", function () {
 
 ---
 
-## 🚀 Execution via Newman CLI
+## Execution via Newman CLI
 
 Run the collection and generate a rich HTML report:
 

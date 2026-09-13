@@ -1,10 +1,10 @@
-# 📋 Manual Testing & Quality Engineering Documentation
+# Manual Testing & Quality Engineering Documentation
 
-This module contains comprehensive test design documentation, requirement analyses, and test execution matrices developed across real-world e-commerce and enterprise authentication domains.
+This module contains test design documentation, requirement analyses, and test execution matrices developed across e-commerce and enterprise authentication domains.
 
 ---
 
-## 📂 Sub-Directories & Artifacts
+## Sub-Directories & Artifacts
 
 | Module | Source Document | Test Artifact | Key Focus Areas |
 | :--- | :--- | :--- | :--- |
@@ -20,7 +20,7 @@ Derived from formal specification **`REQ-DZ-SEARCH-01` (v1.0)** for [Daraz.com.n
 
 ### Deliverables Breakdown
 
-#### A. High-Level Test Scenarios (`TS-01` to `TS-21`)
+#### A. High-Level Test Scenarios (`TS-01` to `TS-17`)
 - **`TS-01` to `TS-03`:** Search bar visibility across all site headers, Enter/Icon search invocation, and real-time auto-suggestions as user types.
 - **`TS-04` to `TS-06`:** Query matching against Title, Brand, and Category; Case-insensitivity (`laptop` = `Laptop` = `LAPTOP`); "No results found" graceful empty state with alternative suggestions.
 - **`TS-07` to `TS-10`:** Individual filters for Price Range (Min/Max validation), Brand filtering, Customer Rating threshold (e.g. 4+ stars), and Location/Free Shipping filters.
@@ -28,7 +28,6 @@ Derived from formal specification **`REQ-DZ-SEARCH-01` (v1.0)** for [Daraz.com.n
 - **`TS-13`:** Sorting verification across 5 algorithms: Popularity, Price (Low to High), Price (High to Low), Newest arrivals, and Top Rating.
 - **`TS-14`:** Product card content verification: thumbnail image, title, active price, discount badge/percentage, and customer rating stars.
 - **`TS-15` to `TS-17`:** Pagination navigation, product card click-through to detail page, and retention of searched keyword in the search bar.
-- **`TS-18` to `TS-21` (Non-Functional):** Response time within 3 seconds, mobile/desktop responsiveness, special character/emoji sanitization, and leading/trailing whitespace trimming.
 
 #### B. Granular Test Cases (`TC-01` to `TC-17d`)
 Each test case is specified with:
@@ -41,7 +40,7 @@ Each test case is specified with:
 - **Priority** (High / Medium / Low) and **Status** (Pass / Fail)
 
 #### C. Requirement Traceability Matrix (RTM)
-Guarantees 100% bidirectional coverage between requirements (`REQ-01` through `REQ-21`), test scenarios, and executed test cases.
+Guarantees bidirectional coverage between functional requirements (`REQ-01` through `REQ-17`), test scenarios (`TS-01` to `TS-17`), and executed test cases (`TC-01` to `TC-17d`).
 
 ---
 
@@ -65,7 +64,7 @@ Documented in [`AssignmentEdited.xlsx`](./Second/AssignmentEdited.xlsx), this su
 
 ---
 
-## 📊 Summary of Quality Engineering Principles Applied
+## Summary of Quality Engineering Principles Applied
 - **Equivalence Partitioning & Boundary Value Analysis** used for range filters and input fields.
 - **Defect Prevention** through early requirement analysis and edge-case scenario creation.
 - **Traceability Management** guaranteeing that no business requirement is released without verified test coverage.

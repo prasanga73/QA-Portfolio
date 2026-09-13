@@ -1,10 +1,10 @@
-# 📊 Performance & Load Testing Suite (Apache JMeter)
+# Performance & Load Testing Suite (Apache JMeter)
 
 This module contains complete performance test plans, test data parameterizations, and performance evaluation reports executing concurrent stress tests against **RemoteAxle API** services.
 
 ---
 
-## 📂 Key Artifacts
+## Key Artifacts
 
 - **JMeter Test Plan:** [`QA TechAxis.jmx`](./QA%20TechAxis.jmx)
 - **Parameterized Test Data:** [`data.csv`](./data.csv) (10 User Credentials)
@@ -12,7 +12,7 @@ This module contains complete performance test plans, test data parameterization
 
 ---
 
-## 🏗️ Test Plan Architecture & Design
+## Test Plan Architecture & Design
 
 ### 1. Data Parameterization (`CSV Data Set Config`)
 - Sourced 10 user credential records (`email`, `password`) from `data.csv`.
@@ -45,7 +45,7 @@ Applied between request executions to simulate human interaction intervals:
 
 ---
 
-## 📈 Multi-Scenario Load Testing Results
+## Multi-Scenario Load Testing Results
 
 Five distinct load scenarios were executed by varying the Thread Group configuration (Concurrency, Ramp-up, and Loop Count).
 
@@ -59,7 +59,7 @@ Five distinct load scenarios were executed by varying the Thread Group configura
 
 ---
 
-## 🔍 Critical Performance Engineering Analysis
+## Critical Performance Engineering Analysis
 
 ### 1. Root-Cause Analysis: The Token / Auth Bottleneck Under Concurrency
 - **Observation:** Notice that from Scenario 2 through Scenario 5, the Login API error rate remained **exactly 10.00%** (matching the 1 bad row in the 10-row dataset). 
@@ -79,7 +79,7 @@ Five distinct load scenarios were executed by varying the Thread Group configura
 
 ---
 
-## 🚀 Execution Guide
+## Execution Guide
 
 ### GUI Mode (for debugging / script modification)
 ```bash

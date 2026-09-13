@@ -1,10 +1,10 @@
-# 🤖 Web UI Automation Engineering Frameworks
+# Web UI Automation Engineering Frameworks
 
-This directory houses production-ready test automation frameworks developed using **Java**, **Selenium WebDriver**, **TestNG**, and **Apache Maven**, showcasing enterprise architectural patterns, continuous testing, and advanced reporting.
+This directory houses test automation frameworks developed using **Java**, **Selenium WebDriver**, **TestNG**, and **Apache Maven**, showcasing Page Object Model architecture, continuous testing, and reporting.
 
 ---
 
-## 🏛️ Framework Comparison & Overview
+## Framework Comparison & Overview
 
 | Framework Project | Target System | Design Pattern | Key Capabilities |
 | :--- | :--- | :--- | :--- |
@@ -13,7 +13,7 @@ This directory houses production-ready test automation frameworks developed usin
 
 ---
 
-## 📁 1. Project A: SauceDemo CI/CD Suite (`AutomationExam/`)
+## 1. Project A: SauceDemo CI/CD Suite (`AutomationExam/`)
 
 ### Architecture
 ```plaintext
@@ -63,7 +63,7 @@ mvn clean test
 
 ---
 
-## 📁 2. Project B: Automation Exercise Enterprise Suite (`AutomationQA/AutomationExercises/`)
+## 2. Project B: Automation Exercise Enterprise Suite (`AutomationQA/AutomationExercises/`)
 
 ### Architecture
 ```plaintext
