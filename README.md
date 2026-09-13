@@ -1,6 +1,6 @@
 # Quality Assurance & Test Automation Portfolio
 
-**Prasanga Niraula**  
+**Prasanga Niraula** 
 QA Engineer | Test Automation & Performance Specialist  
 Lalitpur / Kathmandu, Nepal | [prasanganiraula2016@gmail.com](mailto:prasanganiraula2016@gmail.com) | [Interactive Portfolio](./react-portfolio/)
 
@@ -242,4 +242,3 @@ jmeter -n -t "Jmeter/QA TechAxis.jmx" -l "Jmeter/results.jtl" -e -o "Jmeter/html
 - **Prasanga Niraula**
 - QA Engineer | Test Automation Specialist
 - Email: [prasanganiraula2016@gmail.com](mailto:prasanganiraula2016@gmail.com)
-- Interactive Portfolio: [react-portfolio/](./react-portfolio/)
