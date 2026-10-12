@@ -1,8 +1,8 @@
 # SauceDemo Suite
 
-Selenium + TestNG tests for [SauceDemo](https://www.saucedemo.com/). They run in headless Chrome, so they work on CI servers without a display.
+Selenium + TestNG tests for login, cart and checkout on [SauceDemo](https://www.saucedemo.com/).
 
-## Tests
+## Login tests
 
 `LoginTestCases` covers every combination of valid, invalid and empty username and password. Each error message starts with "Epic sadface:".
 
@@ -18,22 +18,36 @@ Selenium + TestNG tests for [SauceDemo](https://www.saucedemo.com/). They run in
 | Empty | Invalid | Username is required |
 | Empty | Empty | Username is required |
 
-`CartTestCases` adds a product and checks that its button changes to "Remove". It then removes the product and checks that the button changes back to "Add to cart".
+## Cart tests
+
+`CartAutomation` logs in as `visual_user`. All of its tests are tagged `regression`, and the checkout test is also tagged `smoke`.
+
+| Test | Checks |
+| --- | --- |
+| `validateLoginAndCartHeroText` | Login opens the Products page, and the cart opens "Your Cart" |
+| `testCheckoutFeature` | With every product added, checkout opens "Checkout: Your Information" |
+| `verifyCorrectProductsAppearInCart` | Every product added shows up in the cart |
+| `removeButtonCheck` | Removing every item leaves the cart empty |
+| `testContinueShoppingBtn` | Continue Shopping returns to the Products page |
+| `emptyCartCheckOut` | Checkout is blocked when the cart is empty |
+| `productTitleBtnCheck` | Each product title in the cart opens that product's page |
 
 ## Structure
 
 ```text
-src/test/java/AutomationExam/
-├── BaseClass/BaseClass.java   # headless Chrome setup and teardown
-├── Pages/LoginPage.java       # login locators and actions
-├── Pages/CartPage.java        # cart locators and actions
+src/test/java/
+├── Base/BaseClass.java           # Chrome setup and teardown for each test
+├── Pages/
+│   ├── LoginPage.java            # login fields, error message
+│   ├── ProductPage.java          # product list, add to cart
+│   └── CartPage.java             # cart items, remove, checkout
 └── TestCases/
     ├── LoginTestCases.java
-    └── CartTestCases.java
+    └── CartAutomation.java
 ```
 
 ## Run
 
 ```bash
-mvn clean test   # runs testng.xml
+mvn clean test   # runs testng.xml (login tests, then cart tests)
 ```

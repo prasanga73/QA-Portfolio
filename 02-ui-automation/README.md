@@ -4,7 +4,7 @@ Two Maven projects using Java, Selenium WebDriver and TestNG. Both use the Page 
 
 | Suite | Target | Tests | Highlights |
 | --- | --- | ---: | --- |
-| [saucedemo-suite](saucedemo-suite/) | [SauceDemo](https://www.saucedemo.com/) | 11 | Login decision table, cart add/remove, headless Chrome |
+| [saucedemo-suite](saucedemo-suite/) | [SauceDemo](https://www.saucedemo.com/) | 16 | 9-case login decision table, cart and checkout tests |
 | [automation-exercise-suite](automation-exercise-suite/) | [Automation Exercise](https://automationexercise.com/) | 5 | Register, login, logout; ExtentReports with failure screenshots, emailed report |
 
 ## Stack

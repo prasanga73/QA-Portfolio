@@ -1,15 +1,14 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="Automation Exercise Suite">
-    <listeners>
-    </listeners>
-
-    <test name="Login Test">
-
+<suite name="SauceDemo Suite">
+    <test name="Login Tests">
         <classes>
-            <class name="AutomationExam.TestCases.LoginTestCases" />
-            <class name="AutomationExam.TestCases.CartTestCases"/>
+            <class name="TestCases.LoginTestCases"/>
         </classes>
     </test>
-
+    <test name="Cart Tests">
+        <classes>
+            <class name="TestCases.CartAutomation"/>
+        </classes>
+    </test>
 </suite>

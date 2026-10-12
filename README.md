@@ -10,7 +10,7 @@ Manual, UI automation, API and performance testing work from the QA & Automation
 | --- | --- | --- |
 | [Manual testing](01-manual-testing/) | Daraz search & filter | 17 scenarios and 36 test cases written from a requirements spec |
 | | Login & auth security | 9 scenarios and 16 test cases, including lockout, session timeout, SQL injection and XSS |
-| [UI automation](02-ui-automation/) | SauceDemo | Page Object Model, 9-case login decision table, headless Chrome |
+| [UI automation](02-ui-automation/) | SauceDemo | Page Object Model, 9-case login decision table, cart and checkout tests |
 | | Automation Exercise | Page Object Model, ExtentReports with failure screenshots, emailed report |
 | [API testing](03-api-testing/) | Platzi Fake Store API | 14 Postman requests: CRUD, request chaining, JWT auth, JSON Schema check |
 | [Performance testing](04-performance-testing/) | RemoteAxle login & profile APIs | JMeter, 5 load scenarios up to 20,000 samples |
