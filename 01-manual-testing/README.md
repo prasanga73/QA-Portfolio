@@ -1,70 +1,24 @@
-# Manual Testing & Quality Engineering Documentation
+# Manual Testing
 
-This module contains test design documentation, requirement analyses, and test execution matrices developed across e-commerce and enterprise authentication domains.
+Test scenarios and test cases written in Excel. Each test case has an ID, its scenario and requirement IDs, preconditions, steps, test data and expected result.
 
----
+## Daraz search & filter
 
-## Sub-Directories & Artifacts
+Written from the [requirements spec](daraz-search-feature/Requirements_Daraz_Search_Feature-239963.pdf) for product search on [Daraz.com.np](https://www.daraz.com.np/). [`DarazTestCases.xlsx`](daraz-search-feature/DarazTestCases.xlsx) has 17 scenarios (one per requirement) and 36 test cases.
 
-| Module | Source Document | Test Artifact | Key Focus Areas |
-| :--- | :--- | :--- | :--- |
-| **Daraz Product Search** | [`Requirements_Daraz_Search_Feature-239963.pdf`](./daraz-search-feature/Requirements_Daraz_Search_Feature-239963.pdf) | [`DarazTestCases.xlsx`](./daraz-search-feature/DarazTestCases.xlsx) | Functional, UI, Filter Combination, Sorting, Responsive & Non-functional Testing |
-| **Enterprise Auth & Security** | Industry Security Spec | [`LoginAuthTestCases.xlsx`](./login-auth-security/LoginAuthTestCases.xlsx) & [`login-test-data.csv`](./login-auth-security/login-test-data.csv) | Positive/Negative Login, Field Validations, Session Timeout, SQL Injection & XSS |
+Covers:
+- Search bar, searching with Enter or the search icon, auto-suggestions
+- Keyword matching, case-insensitive search, zero-results behavior
+- Filters for price range, brand, rating, location and free shipping; combined filters; clearing and resetting filters
+- Sorting by popularity, price, newest and top rating
+- Product card content, pagination, opening a product, keyword kept after search
 
----
+## Login & auth security
 
-## 1. Daraz.com.np E-Commerce Search & Filter Feature
+[`LoginAuthTestCases.xlsx`](login-auth-security/LoginAuthTestCases.xlsx) has 9 scenarios and 16 test cases. Test data is in [`login-test-data.csv`](login-auth-security/login-test-data.csv).
 
-### Context
-Derived from formal specification **`REQ-DZ-SEARCH-01` (v1.0)** for [Daraz.com.np](https://www.daraz.com.np/). The feature allows visitors to search products via keyword queries, inspect auto-suggestions, and refine catalog results using multi-attribute filters and sorting.
-
-### Deliverables Breakdown
-
-#### A. High-Level Test Scenarios (`TS-01` to `TS-17`)
-- **`TS-01` to `TS-03`:** Search bar visibility across all site headers, Enter/Icon search invocation, and real-time auto-suggestions as user types.
-- **`TS-04` to `TS-06`:** Query matching against Title, Brand, and Category; Case-insensitivity (`laptop` = `Laptop` = `LAPTOP`); "No results found" graceful empty state with alternative suggestions.
-- **`TS-07` to `TS-10`:** Individual filters for Price Range (Min/Max validation), Brand filtering, Customer Rating threshold (e.g. 4+ stars), and Location/Free Shipping filters.
-- **`TS-11` & `TS-12`:** Multi-filter compounding (applying 3+ filters simultaneously) and single-filter clear vs. "Reset All Filters".
-- **`TS-13`:** Sorting verification across 5 algorithms: Popularity, Price (Low to High), Price (High to Low), Newest arrivals, and Top Rating.
-- **`TS-14`:** Product card content verification: thumbnail image, title, active price, discount badge/percentage, and customer rating stars.
-- **`TS-15` to `TS-17`:** Pagination navigation, product card click-through to detail page, and retention of searched keyword in the search bar.
-
-#### B. Granular Test Cases (36 Test Cases: `TC-01` to `TC-17`)
-Each test case is specified with:
-- **Test Case ID & Scenario ID**
-- **Title & Objective**
-- **Preconditions** (e.g. site access, filter states)
-- **Detailed Step-by-Step Test Steps**
-- **Test Data Inputs**
-- **Expected Results**
-- **Priority** (High / Medium / Low) and **Status** (Pass / Fail)
-
-#### C. Requirement Traceability Matrix (RTM)
-Guarantees bidirectional coverage between functional requirements (`REQ-01` through `REQ-17`), test scenarios (`TS-01` to `TS-17`), and executed test cases (`TC-01` to `TC-17d`).
-
----
-
-## 2. Enterprise Authentication & Security Test Suite
-
-### Scope & Structure
-Documented in [`LoginAuthTestCases.xlsx`](./login-auth-security/LoginAuthTestCases.xlsx), this suite targets core login functionality, user session lifecycles, and vulnerability defenses against common OWASP threats.
-
-| Scenario ID | Test Case ID | Test Focus | Objective & Test Technique |
-| :---: | :---: | :--- | :--- |
-| **TS-01** | `TC-01`, `TC-01a`, `TC-01b` | Valid Login & Redirection | Valid username/email + password, verifies redirect to user dashboard. |
-| **TS-02** | `TC-02`, `TC-02a`, `TC-02b` | Invalid Credentials | Invalid username, invalid password, mismatched pairs; validates generic security-safe error messaging. |
-| **TS-03** | `TC-03`, `TC-03a` | Mandatory Fields | Blank username and blank password submissions; validates inline required field warnings. |
-| **TS-04** | `TC-04` | Password Masking | Visual privacy check verifying entered characters render as bullets/asterisks. |
-| **TS-05** | `TC-05` | Brute-Force Defense | Simulates consecutive failed login attempts to verify account lockout threshold activation. |
-| **TS-06** | `TC-06`, `TC-06a` | Forgot Password Flow | Validates presence and routing of password reset link. |
-| **TS-07** | `TC-07` | Session Inactivity Timeout | Verifies user session automatically invalidates after defined idle threshold. |
-| **TS-08** | `TC-08` | UI Layout Integrity | Checks element rendering, alignment, and responsiveness on login portal. |
-| **TS-09** | `TC-09` | **SQL Injection (SQLi)** | Injects `' OR 1=1 --` into inputs to test authentication bypass resilience. |
-| **TS-09** | `TC-09a` | **Cross-Site Scripting (XSS)** | Injects `<script>alert('XSS')</script>` payloads to verify input sanitization. |
-
----
-
-## Summary of Quality Engineering Principles Applied
-- **Equivalence Partitioning & Boundary Value Analysis** used for range filters and input fields.
-- **Defect Prevention** through early requirement analysis and edge-case scenario creation.
-- **Traceability Management** guaranteeing that no business requirement is released without verified test coverage.
+Covers:
+- Login with a valid username or email, and errors for invalid credentials
+- Required fields, password masking, Forgot Password link, login page UI
+- Account lockout after repeated failed attempts, session timeout after inactivity
+- SQL injection and XSS in the username and password fields

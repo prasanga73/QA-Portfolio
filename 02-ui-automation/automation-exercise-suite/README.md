@@ -1,121 +1,43 @@
-# AutomationExercise Test Automation Suite
+# Automation Exercise Suite
 
-Selenium WebDriver and TestNG automation for [Automation Exercise](https://automationexercise.com/), built as a Maven project around a reusable Page Object Model (POM) test architecture.
+Selenium + TestNG tests for [Automation Exercise](https://automationexercise.com/), with ExtentReports reporting.
 
-## AutomationExercise Suite
-
-Multi-tier Maven automation architecture featuring dynamic test data generation, ExtentReports 5 dashboards, automated failure screenshots, and email report dispatch.
-
-### Highlights
-
-- **Dynamic email generation:** `EmailsUtils.java` creates timestamped, unique user emails so registration tests can run repeatedly without database collisions.
-- **Automated failure capture:** `ExtentReporterManagerSS` captures PNG screenshots when a test fails and embeds them in the Extent HTML report.
-- **Test lifecycle logging:** `CustomTestListener` logs suite, test-start, pass, failure, and skip events for console visibility.
-- **Email dispatch:** The reporting listener can send the generated HTML report as an email attachment through Jakarta Mail.
-
-## Test Coverage
-
-The configured TestNG suite runs the following POM tests:
+## Tests
 
 | Test | Scenario |
 | --- | --- |
 | `TestCase1RegisterUser` | Register a new user |
 | `TestCase2ValidUserLogin` | Log in with valid credentials |
-| `TestCase3InvalidUserLogin` | Validate invalid login behavior |
-| `TestCase4UserLogOut` | Log out an authenticated user |
-| `TestCase5ExistingRegister` | Validate registration for an existing user |
+| `TestCase3InvalidUserLogin` | Log in with invalid credentials |
+| `TestCase4UserLogOut` | Log out |
+| `TestCase5ExistingRegister` | Sign up with an email that is already registered |
 
-Each POM test uses `BaseClass` to start Chrome, open the application, apply browser settings, and close the driver after execution.
+## Reporting
 
-## Project Structure
+`ExtentReporterManagerSS` is the listener set in `testing.xml`. On each run it:
+1. Writes an HTML report to `reports/Test-Report-<timestamp>.html`
+2. Saves a screenshot of each failed test to `screenshots/` and attaches it to the report
+3. Emails the report when the suite finishes, using the sender settings in `EmailsUtils.java`
+
+## Structure
 
 ```text
-automation-exercise-suite/
-├── pom.xml                         # Maven build and dependency configuration
-├── testing.xml                     # TestNG suite and active listeners
-├── reports/                        # Generated ExtentReports HTML files
-├── screenshots/                    # Failure screenshots created at runtime
-└── src/
-	├── main/resources/             # Main-resource directory
-	└── test/java/automationexercise/
-		├── BaseClass.java          # Shared browser setup and teardown
-		├── TestCase1Register/
-		├── TestCase2ValidLogin/
-		├── TestCase3InvalidLogin/
-		├── TestCase4LogOut/
-		├── TestCase5RegisteredUser/
-		└── Utilities/
-			├── EmailsUtils.java
-			├── CustomTestListener.java
-			├── ExtentReporterManager.java
-			└── ExtentReporterManagerSS.java
+src/test/java/automationexercise/
+├── BaseClass.java                   # opens Chrome before each test, quits after
+├── TestCase1Register/ … TestCase5RegisteredUser/
+│                                    # page class + test class per scenario
+└── Utilities/
+    ├── ExtentReporterManagerSS.java # report with failure screenshots (active)
+    ├── ExtentReporterManager.java   # report without screenshots
+    ├── CustomTestListener.java      # console logging (disabled in testing.xml)
+    └── EmailsUtils.java             # emails the report
 ```
 
-## Reporting Workflow
-
-The active listener in `testing.xml` is `ExtentReporterManagerSS`:
-
-1. Creates a timestamped Extent Spark HTML report in `reports/`.
-2. Records passed, failed, and skipped TestNG methods.
-3. Captures a browser screenshot for failed tests in `screenshots/`.
-4. Embeds the screenshot path into the failed report entry.
-5. Flushes the report and can email it as an attachment through `EmailsUtils`.
-
-`ExtentReporterManager` provides the reporting flow without screenshots. `CustomTestListener` is available for console lifecycle logging and is currently commented out in the suite XML.
-
-## Technology Stack
-
-- Java compiler configuration: Maven compiler plugin with source and target set to Java 21
-- Apache Maven
-- Selenium WebDriver 4.47.0
-- TestNG 7.12.0
-- ExtentReports 5.1.2
-- Lombok 1.18.38
-- Jakarta Mail 2.0.2
-- Google Chrome with Selenium Manager for driver resolution
-
-## Prerequisites
-
-- JDK 21 or a compatible newer JDK
-- Apache Maven 3.8 or newer
-- Google Chrome installed and available to Selenium
-- Network access to `automationexercise.com`
-
-Verify the local tools before running the suite:
-
-```bash
-java -version
-mvn -version
-```
-
-## Run the Tests
-
-Run the configured TestNG suite from the `automation-exercise-suite` directory:
+## Run
 
 ```bash
 mvn clean test
-```
 
-The Surefire plugin is already configured to use `testing.xml`. To select the suite explicitly:
-
-```bash
-mvn test -DsuiteXmlFile=testing.xml
-```
-
-Run a specific test class when troubleshooting:
-
-```bash
+# a single test class
 mvn -Dtest=automationexercise.TestCase2ValidLogin.TestCase2ValidUserLogin test
 ```
-
-## Output Locations
-
-- Extent HTML reports: `reports/Test-Report-<timestamp>.html`
-- Failure screenshots: `screenshots/<test-name>_<timestamp>.png`
-- Maven build output: `target/`
-- Surefire and TestNG result files: `target/surefire-reports/`
-
-## Configuration and Security
-
-The email utility currently contains SMTP sender and recipient settings in source code. Do not commit real passwords or app passwords. Before sharing or running this project in another environment, move those values to environment variables or another secret-management mechanism and update `EmailsUtils.java` to read them at runtime.
-

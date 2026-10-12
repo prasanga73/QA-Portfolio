@@ -1,107 +1,22 @@
-# Web UI Automation Engineering Frameworks
+# UI Automation
 
-This directory houses test automation frameworks developed using **Java**, **Selenium WebDriver**, **TestNG**, and **Apache Maven**, showcasing Page Object Model architecture, continuous testing, and reporting.
+Two Maven projects using Java, Selenium WebDriver and TestNG. Both use the Page Object Model: page classes hold locators and actions, and test classes hold the assertions.
 
----
+| Suite | Target | Tests | Highlights |
+| --- | --- | ---: | --- |
+| [saucedemo-suite](saucedemo-suite/) | [SauceDemo](https://www.saucedemo.com/) | 11 | Login decision table, cart add/remove, headless Chrome |
+| [automation-exercise-suite](automation-exercise-suite/) | [Automation Exercise](https://automationexercise.com/) | 5 | Register, login, logout; ExtentReports with failure screenshots, emailed report |
 
-## Framework Comparison & Overview
+## Stack
 
-| Framework Project | Target System | Design Pattern | Key Capabilities |
-| :--- | :--- | :--- | :--- |
-| **saucedemo-suite** | [SauceDemo](https://www.saucedemo.com/) | Page Object Model (POM) | 9-case Auth Decision Table, Cart state transitions, Modern Headless Chrome (`--headless=new`), CI/CD & Jenkins-ready |
-| **automation-exercise-suite** | [Automation Exercise](https://automationexercise.com/) | Page Object Model (POM) + Listeners | Dynamic timestamped email generation (`EmailsUtils`), ExtentReports 5 with automatic failure screenshot capture, Jakarta Mail dispatch |
+Java 21 · Selenium WebDriver 4.47 · TestNG 7.12 · ExtentReports 5.1 · Maven Surefire · Chrome (driver resolved by Selenium Manager)
 
----
+## Run
 
-## 1. Project A: SauceDemo CI/CD Suite (`saucedemo-suite/`)
+Needs JDK 21+, Maven and Chrome. From either suite directory:
 
-### Architecture
-```plaintext
-saucedemo-suite/
-├── pom.xml                                  # Maven dependencies: Selenium 4.47, TestNG 7.12, ExtentReports 5
-├── testng.xml                               # Suite runner configuration
-└── src/test/java/AutomationExam/
-    ├── BaseClass/
-    │   └── BaseClass.java                   # Headless driver initialization, wait timeouts, cookie teardown
-    ├── Pages/
-    │   ├── LoginPage.java                   # Locators & action methods for user login
-    │   └── CartPage.java                    # Locators & action methods for inventory & cart
-    └── TestCases/
-        ├── LoginTestCases.java              # 9 Decision table test permutations
-        └── CartTestCases.java               # Cart item add/remove state validation
-```
-
-### Key Highlights
-1. **Decision Table Authentication Testing:**
-   Covers every combination of valid, invalid, and missing credentials:
-   - Valid User + Valid Password (`standard_user` + `secret_sauce` -> Passes and navigates to inventory)
-   - Valid User + Invalid Password -> Exact assertion on error message: `"Epic sadface: Username and password do not match any user in this service"`
-   - Valid User + Empty Password -> `"Epic sadface: Password is required"`
-   - Invalid User + Valid Password -> `"Epic sadface: Username and password do not match any user in this service"`
-   - Invalid User + Invalid Password -> Mismatch error assertion
-   - Invalid User + Empty Password -> `"Epic sadface: Password is required"`
-   - Empty User + Valid Password -> `"Epic sadface: Username is required"`
-   - Empty User + Invalid Password -> `"Epic sadface: Username is required"`
-   - Empty User + Empty Password -> `"Epic sadface: Username is required"`
-
-2. **Headless Execution for CI/CD Pipelines:**
-   `BaseClass.java` is pre-configured with flags essential for running inside Docker containers or Jenkins agents without a GUI:
-   ```java
-   ChromeOptions options = new ChromeOptions();
-   options.addArguments("--headless=new");           // modern headless mode
-   options.addArguments("--no-sandbox");             // required for root/jenkins execution
-   options.addArguments("--disable-dev-shm-usage");  // prevents /dev/shm memory exhaustion in CI
-   options.addArguments("--disable-gpu");
-   options.addArguments("--window-size=1920,1080");
-   ```
-
-### Running the Suite:
 ```bash
-cd saucedemo-suite
 mvn clean test
 ```
 
----
-
-## 2. Project B: Automation Exercise Enterprise Suite (`automation-exercise-suite/`)
-
-### Architecture
-```plaintext
-automation-exercise-suite/
-├── pom.xml                                  # Build configuration & surefire plugins
-├── reports/                                 # Generated HTML test execution reports with embedded screenshots
-└── src/test/java/automationexercise/      # Page Object Model implementation
-    ├── BaseClass.java                       # WebDriver lifecycle management
-    ├── TestCase1Register/                   # POM Page + Test for full user profile registration
-    ├── TestCase2ValidLogin/                 # POM Page + Test for authenticated user login
-    ├── TestCase3InvalidLogin/               # POM Page + Test for negative credential validation
-    ├── TestCase4LogOut/                     # POM Page + Test for user session logout
-    ├── TestCase5RegisteredUser/             # POM Page + Test for duplicate user registration
-    └── Utilities/
-        ├── CustomTestListener.java          # TestNG ITestListener implementation
-        ├── ExtentReporterManagerSS.java     # Automatic failure screenshot capture & linking
-        ├── ExtentReporterManager.java       # ExtentReports 5 dashboard configuration
-        └── EmailsUtils.java                 # Dynamic email generator & Jakarta Mail sender
-```
-
-### Key Highlights
-1. **Dynamic Idempotent Test Data:**
-   `EmailsUtils.java` generates timestamp-backed unique emails:
-   ```java
-   public static String generateUniqueEmail() {
-       return "testuser" + System.currentTimeMillis() + "@gmail.com";
-   }
-   ```
-   This ensures tests like `TestCase1RegisterUser` can run indefinitely in CI/CD without conflicting with existing database records.
-
-2. **Automated Failure Screenshots in ExtentReports 5:**
-   When any test method fails, `CustomTestListener` intercepts the failure via `onTestFailure`, triggers `ExtentReporterManagerSS.captureScreenshot(driver, result.getName())`, and attaches the resulting PNG file to the Extent HTML report.
-
-3. **Email Notification Pipeline:**
-   Includes automated email dispatch capabilities using Jakarta Mail (`EmailsUtils.java`) to send test execution summaries to team stakeholders upon build completion.
-
-### Running the Suite:
-```bash
-cd automation-exercise-suite
-mvn test -DsuiteXmlFile=testing.xml
-```
+Each `pom.xml` points Surefire at the suite's TestNG XML file, so no extra flags are needed.
