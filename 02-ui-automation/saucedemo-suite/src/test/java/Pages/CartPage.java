@@ -90,6 +90,8 @@ public class CartPage {
 
     public void navigateToProductPage(){
         driver.findElement(continueShoppingBtn).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.urlContains("inventory.html")); //cart page also has .title, so wait for the route change
     }
 
     public void validateCheckOutHeroText(){
