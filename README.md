@@ -67,12 +67,12 @@ flowchart TD
 ## Featured Projects
 
 ### 1. Specification-Driven Manual Testing & Traceability (Daraz.com.np)
-- **Directory:** [`Manual Test Cases /Daraz Manual/`](./Manual%20Test%20Cases%20/Daraz%20Manual/)
-- **Key Artifacts:** [`DarazTestCases.xlsx`](./Manual%20Test%20Cases%20/Daraz%20Manual/DarazTestCases.xlsx), [`Requirements_Daraz_Search_Feature-239963.pdf`](./Manual%20Test%20Cases%20/Daraz%20Manual/Requirements_Daraz_Search_Feature-239963.pdf)
+- **Directory:** [`01-manual-testing/daraz-search-feature/`](./01-manual-testing/daraz-search-feature/)
+- **Key Artifacts:** [`DarazTestCases.xlsx`](./01-manual-testing/daraz-search-feature/DarazTestCases.xlsx), [`Requirements_Daraz_Search_Feature-239963.pdf`](./01-manual-testing/daraz-search-feature/Requirements_Daraz_Search_Feature-239963.pdf)
 - **Overview:** End-to-end quality validation for the Product Search and Filter module on [Daraz.com.np](https://www.daraz.com.np/), derived from formal specification document `REQ-DZ-SEARCH-01`.
 - **Test Design:**
   - **17 High-Level Scenarios (`TS-01` to `TS-17`):** Mapped directly to functional requirements (`REQ-01` to `REQ-17`).
-  - **Granular Test Cases (`TC-01` to `TC-17d`):** Defined preconditions, step-by-step actions, test data sets, and expected outcomes.
+  - **36 Granular Test Cases (`TC-01` to `TC-17`):** Explicit Preconditions, step-by-step actions, test data sets, and expected results covering all 17 functional requirements.
   - **Traceability:** Requirement Traceability Matrix (RTM) linking functional requirements (`REQ-01` to `REQ-17`) to corresponding scenarios and execution statuses.
 - **Coverage Areas:**
   - Search persistence, query matching, case-insensitivity, and dynamic auto-suggest dropdown.
@@ -84,8 +84,8 @@ flowchart TD
 ---
 
 ### 2. Enterprise Authentication & Security Test Suite
-- **Directory:** [`Manual Test Cases /Second/`](./Manual%20Test%20Cases%20/Second/)
-- **Key Artifacts:** [`AssignmentEdited.xlsx`](./Manual%20Test%20Cases%20/Second/AssignmentEdited.xlsx), [`apitest1.csv`](./Manual%20Test%20Cases%20/Second/apitest1.csv)
+- **Directory:** [`01-manual-testing/login-auth-security/`](./01-manual-testing/login-auth-security/)
+- **Key Artifacts:** [`LoginAuthTestCases.xlsx`](./01-manual-testing/login-auth-security/LoginAuthTestCases.xlsx), [`login-test-data.csv`](./01-manual-testing/login-auth-security/login-test-data.csv)
 - **Overview:** Functional and security assessment of an enterprise authentication module, evaluating credential validation, session rules, and vulnerability resistance.
 - **Coverage Areas:**
   - **Functional Combinations:** Valid credentials, invalid credentials, mismatched pairs, and blank required-field submissions.
@@ -99,13 +99,12 @@ flowchart TD
 ---
 
 ### 3. Web UI Automation Frameworks (Java + Selenium WebDriver + TestNG)
-- **Directory:** [`Automation/`](./Automation/)
+- **Directory:** [`02-ui-automation/`](./02-ui-automation/)
 - **Included Projects:**
-  - **SauceDemo CI/CD Suite:** [`Automation/AutomationExam/`](./Automation/AutomationExam/)
-  - **Automation Exercise Enterprise Suite:** [`Automation/AutomationQA/AutomationExercises/`](./Automation/AutomationQA/AutomationExercises/)
+  - **SauceDemo CI/CD Suite:** [`02-ui-automation/saucedemo-suite/`](./02-ui-automation/saucedemo-suite/)
+  - **Automation Exercise Enterprise Suite:** [`02-ui-automation/automation-exercise-suite/`](./02-ui-automation/automation-exercise-suite/)
 - **Technical Highlights:**
   - **Page Object Model (POM):** Decoupled page elements and interaction methods (`LoginPage.java`, `CartPage.java`) from test assertions (`LoginTestCases.java`, `CartTestCases.java`).
-  - **Architecture Evolution:** Demonstrates migration from linear scripts (`WithoutPOM/TestCase1RegisterUser.java`) to scalable POM structures (`UsingPOM/`).
   - **Dynamic Data Generation:** Implemented `EmailsUtils.java` to generate unique timestamped email addresses (`"testuser" + System.currentTimeMillis() + "@gmail.com"`), preventing registration collisions.
   - **9-Case Decision Table:** Comprehensive login state validation on SauceDemo (Valid/Valid, Valid/Invalid, Valid/Empty, Invalid/Valid, Invalid/Invalid, Invalid/Empty, Empty/Valid, Empty/Invalid, Empty/Empty) with exact banner assertions.
   - **Cart Workflow:** Verifies item addition, dynamic button toggle to "Remove", item removal, and button restoration to "Add to cart".
@@ -114,17 +113,17 @@ flowchart TD
 
 ```bash
 # Run SauceDemo Suite
-cd "Automation/AutomationExam" && mvn clean test
+cd 02-ui-automation/saucedemo-suite && mvn clean test
 
-# Run AutomationExercise POM Suite
-cd "Automation/AutomationQA/AutomationExercises" && mvn test -DsuiteXmlFile=src/test/java/AutomationTestCases/UsingPOM/testing.xml
+# Run AutomationExercise POM Suite (testing.xml is wired in pom.xml)
+cd 02-ui-automation/automation-exercise-suite && mvn clean test
 ```
 
 ---
 
 ### 4. REST API Testing & Automation (Postman + JSON Schema + Newman)
-- **Directory:** [`API Testing/`](./API%20Testing/)
-- **Key Artifact:** [`Platzi API.postman_collection.json`](./API%20Testing/Platzi%20API.postman_collection.json)
+- **Directory:** [`03-api-testing/`](./03-api-testing/)
+- **Key Artifact:** [`platzi-fake-store-api.postman_collection.json`](./03-api-testing/platzi-fake-store-api.postman_collection.json)
 - **Target API:** Platzi Fake Store REST API (`https://api.escuelajs.co/api/v1/`)
 - **Scope:** 14 automated requests covering product, category, pagination, and auth lifecycles.
 - **Technical Capabilities:**
@@ -137,14 +136,14 @@ cd "Automation/AutomationQA/AutomationExercises" && mvn test -DsuiteXmlFile=src/
 
 ```bash
 # Run Postman collection via Newman CLI
-newman run "API Testing/Platzi API.postman_collection.json" -r cli,htmlextra --reporter-htmlextra-export api-report.html
+newman run 03-api-testing/platzi-fake-store-api.postman_collection.json -r cli,htmlextra --reporter-htmlextra-export api-report.html
 ```
 
 ---
 
 ### 5. Concurrency & Performance Testing (Apache JMeter)
-- **Directory:** [`Jmeter/`](./Jmeter/)
-- **Key Artifacts:** [`QA TechAxis.jmx`](./Jmeter/QA%20TechAxis.jmx), [`data.csv`](./Jmeter/data.csv), [`JmeterReportEdited.pdf`](./Jmeter/JmeterReportEdited.pdf)
+- **Directory:** [`04-performance-testing/`](./04-performance-testing/)
+- **Key Artifacts:** [`remoteaxle-auth-load-test.jmx`](./04-performance-testing/remoteaxle-auth-load-test.jmx), [`data.csv`](./04-performance-testing/data.csv), [`jmeter-performance-report.pdf`](./04-performance-testing/jmeter-performance-report.pdf)
 - **Target Application:** RemoteAxle Authentication & User Profile APIs (`https://devapi.remoteaxle.com/`)
 - **Test Design:**
   - **Data-Driven Execution:** `CSV Data Set Config` recycling 10 user credential records (`data.csv`). Includes 1 intentional invalid record to verify a controlled 10.00% baseline failure rate.
@@ -174,38 +173,33 @@ newman run "API Testing/Platzi API.postman_collection.json" -r cli,htmlextra --r
 
 ```plaintext
 QA Portfolio/
-├── API Testing/
-│   ├── Platzi API.postman_collection.json
+├── 01-manual-testing/
+│   ├── daraz-search-feature/
+│   │   ├── DarazTestCases.xlsx
+│   │   └── Requirements_Daraz_Search_Feature-239963.pdf
+│   ├── login-auth-security/
+│   │   ├── LoginAuthTestCases.xlsx
+│   │   └── login-test-data.csv
 │   └── README.md
-├── Automation/
-│   ├── AutomationExam/
+├── 02-ui-automation/
+│   ├── saucedemo-suite/              # Maven project (SauceDemo)
 │   │   ├── pom.xml
 │   │   ├── testng.xml
 │   │   └── src/test/java/AutomationExam/
-│   ├── AutomationQA/
-│   │   └── AutomationExercises/
-│   │       ├── pom.xml
-│   │       ├── reports/
-│   │       └── src/test/java/
+│   ├── automation-exercise-suite/    # Maven project (Automation Exercise)
+│   │   ├── pom.xml
+│   │   ├── testing.xml
+│   │   ├── reports/
+│   │   └── src/test/java/automationexercise/
 │   └── README.md
-├── Jmeter/
-│   ├── QA TechAxis.jmx
+├── 03-api-testing/
+│   ├── platzi-fake-store-api.postman_collection.json
+│   └── README.md
+├── 04-performance-testing/
+│   ├── remoteaxle-auth-load-test.jmx
 │   ├── data.csv
-│   ├── JmeterReportEdited.pdf
+│   ├── jmeter-performance-report.pdf
 │   └── README.md
-├── Manual Test Cases /
-│   ├── Daraz Manual/
-│   │   ├── DarazTestCases.xlsx
-│   │   └── Requirements_Daraz_Search_Feature-239963.pdf
-│   ├── Second/
-│   │   ├── AssignmentEdited.xlsx
-│   │   └── apitest1.csv
-│   └── README.md
-├── react-portfolio/
-│   ├── package.json
-│   ├── src/
-│   └── index.html
-├── index.html
 └── README.md
 ```
 
@@ -216,23 +210,23 @@ QA Portfolio/
 ### UI Automation
 ```bash
 # SauceDemo Suite
-cd "Automation/AutomationExam"
+cd 02-ui-automation/saucedemo-suite
 mvn clean test
 
 # Automation Exercise Suite
-cd "Automation/AutomationQA/AutomationExercises"
+cd 02-ui-automation/automation-exercise-suite
 mvn clean test
 ```
 
 ### API Testing
 ```bash
 npm install -g newman newman-reporter-htmlextra
-newman run "API Testing/Platzi API.postman_collection.json" -r cli,htmlextra
+newman run 03-api-testing/platzi-fake-store-api.postman_collection.json -r cli,htmlextra
 ```
 
 ### JMeter Load Testing (CLI Mode)
 ```bash
-jmeter -n -t "Jmeter/QA TechAxis.jmx" -l "Jmeter/results.jtl" -e -o "Jmeter/html-report"
+jmeter -n -t 04-performance-testing/remoteaxle-auth-load-test.jmx -l 04-performance-testing/results.jtl -e -o 04-performance-testing/html-report
 ```
 
 ---

@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Automation Exercise Suite">
+    <listeners>
+<!--        <listener class-name="automationexercise.Utilities.CustomTestListener"/>-->
+        <listener class-name="automationexercise.Utilities.ExtentReporterManagerSS"/>
+    </listeners>
+
+    <test name="Login Test">
+
+        <classes>
+            <class name="automationexercise.TestCase1Register.TestCase1RegisterUser" />
+            <class name="automationexercise.TestCase2ValidLogin.TestCase2ValidUserLogin" />
+            <class name="automationexercise.TestCase3InvalidLogin.TestCase3InvalidUserLogin"/>
+            <class name="automationexercise.TestCase4LogOut.TestCase4UserLogOut"/>
+            <class name="automationexercise.TestCase5RegisteredUser.TestCase5ExistingRegister"/>
+
+        </classes>
+    </test>
+
+</suite>
